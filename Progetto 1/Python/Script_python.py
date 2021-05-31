@@ -14,7 +14,6 @@ import time
 import os
 import psutil
 
-
 def matrix_solver(directory_sparse_matrix):
     #matrix load
     a = scipy.io.mmread(directory_sparse_matrix)
