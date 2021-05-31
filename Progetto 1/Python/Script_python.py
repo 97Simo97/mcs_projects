@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed May 26 15:44:51 2021
-
-@author: Simone Ritucci, Kevin Manella
-"""
-
 import numpy as np
 import scipy.io
 import scipy.sparse
@@ -15,7 +8,7 @@ import os
 import psutil
 
 
-def matrix_solver(directory_sparse_matrix):
+def script_python(directory_sparse_matrix):
     #matrix load
     a = scipy.io.mmread(directory_sparse_matrix)
     #fill zero matrix
@@ -43,6 +36,6 @@ def matrix_solver(directory_sparse_matrix):
     print("Memoria: ", (process.memory_info().rss)/1e+6)
 
 
-matrix_solver('ns3Da.mtx')
-atrix_solver('TSC_OPF_1047.mtx')
+#script_python('ns3Da.mtx')
+#script_python('TSC_OPF_1047.mtx')
 
