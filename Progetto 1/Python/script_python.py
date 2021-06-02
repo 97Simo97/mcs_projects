@@ -1,6 +1,5 @@
 import os
 import time
-import psutil
 import numpy
 import scipy
 import scipy.io
@@ -15,15 +14,10 @@ import cvxpy
 # - Dimensione della matrice
 # - Tempo impiegato per risolvere il sistema lineare (in secondi)
 # - Errore relativo della soluzione
-# - Memoria usata per risolvere il sistema lineare (in MB)
 def matrix_solver(matrice):
     
     # Caricamento matrice A
     A = scipy.io.mmread(matrice).tocsc()
-    
-    # Memoria usata dopo aver letto la matrice (in MB)
-    user = psutil.Process(os.getpid())
-    memoria_dopo_lettura_matrice = user.memory_info().rss/1e+6
     
     # Dimensione della matrice
     dimensione = A.shape[0]
@@ -38,36 +32,23 @@ def matrix_solver(matrice):
     tempo_iniziale = time.time()
     x = scipy.sparse.linalg.spsolve(A, b)
     tempo_impiegato = time.time() - tempo_iniziale
-    
-    # Memoria usata dopo aver risolto il sistema lineare (in MB)
-    user = psutil.Process(os.getpid())
-    memoria_dopo_risoluzione_sistema = user.memory_info().rss/1e+6
 
     # Errore relativo della soluzione
     errore_relativo = numpy.linalg.norm(x - xe) / numpy.linalg.norm(xe)
-    
-    # Differenza delle 2 memorie calcolate precedentemente (in MB)
-    memoria_usata = memoria_dopo_risoluzione_sistema - memoria_dopo_lettura_matrice
  
     # Stampa delle informazioni
     print("Dimensione:", dimensione)
     print("Tempo impiegato:", tempo_impiegato)
     print("Errore relativo:", errore_relativo)
-    print("Memoria usata:", memoria_usata)
 
 # Funzione per matrici simmetriche e definite positive che riceve in input la matrice del sistema lineare e restituisce:
 # - Dimensione della matrice
 # - Tempo impiegato per risolvere il sistema lineare (in secondi)
 # - Errore relativo della soluzione
-# - Memoria usata per risolvere il sistema lineare (in MB)
 def matrix_solver_cholesky(matrice):
     
     # Caricamento matrice A
     A = cvxpy.interface.matrix_utilities.sparse2cvxopt(scipy.io.loadmat(matrice)['Problem']['A'][0][0])
-
-    # Memoria usata dopo aver letto la matrice (in MB)
-    user = psutil.Process(os.getpid())
-    memoria_dopo_lettura_matrice = user.memory_info().rss/1e+6
 
     # Dimensione della matrice
     dimensione = str(A.size[0])
@@ -82,22 +63,14 @@ def matrix_solver_cholesky(matrice):
     tempo_iniziale = time.time()
     x = cvxopt.cholmod.splinsolve(A,b)
     tempo_impiegato = time.time() - tempo_iniziale
-    
-    # Memoria usata dopo aver risolto il sistema lineare (in MB)
-    user = psutil.Process(os.getpid())
-    memoria_dopo_risoluzione_sistema = user.memory_info().rss/1e+6
 
     # Errore relativo della soluzione
     errore_relativo = numpy.linalg.norm(x - xe) / numpy.linalg.norm(xe)
-
-    # Differenza delle 2 memorie calcolate precedentemente (in MB)
-    memoria_usata = memoria_dopo_risoluzione_sistema - memoria_dopo_lettura_matrice
     
     # Stampa delle informazioni
     print("Dimensione:", dimensione)
     print("Tempo impiegato:", tempo_impiegato)
     print("Errore relativo:", errore_relativo)
-    print("Memoria usata:", memoria_usata)
 
 # Richiamo della funzione per ogni matrice generica
 # dalla più piccola alla più grande
