@@ -14,7 +14,7 @@ import cvxpy
 # - Dimensione della matrice
 # - Tempo impiegato per risolvere il sistema lineare (in secondi)
 # - Errore relativo della soluzione
-def matrix_solver(matrice):
+def risolutore_matrici_generiche(matrice):
     
     # Caricamento matrice A
     A = scipy.io.mmread(matrice).tocsc()
@@ -45,7 +45,7 @@ def matrix_solver(matrice):
 # - Dimensione della matrice
 # - Tempo impiegato per risolvere il sistema lineare (in secondi)
 # - Errore relativo della soluzione
-def matrix_solver_cholesky(matrice):
+def risolutore_matrici_simmmetriche_definite_positive(matrice):
     
     # Caricamento matrice A
     A = cvxpy.interface.matrix_utilities.sparse2cvxopt(scipy.io.loadmat(matrice)['Problem']['A'][0][0])
@@ -61,7 +61,7 @@ def matrix_solver_cholesky(matrice):
 
     # Risoluzione sistema lineare e tempo impiegato per risolverlo (in secondi)
     tempo_iniziale = time.time()
-    x = cvxopt.cholmod.splinsolve(A,b)
+    x = cvxopt.cholmod.splinsolve(A, b)
     tempo_impiegato = time.time() - tempo_iniziale
 
     # Errore relativo della soluzione
@@ -74,14 +74,14 @@ def matrix_solver_cholesky(matrice):
 
 # Richiamo della funzione per ogni matrice generica
 # dalla più piccola alla più grande
-#matrix_solver('GT01R.mtx')
-#matrix_solver('TSC_OPF_1047.mtx')
-#matrix_solver('ns3Da.mtx')
-#matrix_solver('ifiss_mat.mtx')
+#risolutore_matrici_generiche('GT01R.mtx')
+#risolutore_matrici_generiche('TSC_OPF_1047.mtx')
+#risolutore_matrici_generiche('ns3Da.mtx')
+#risolutore_matrici_generiche('ifiss_mat.mtx')
 
 # Richiamo della funzione per ogni matrice simmetrica e definita positiva
 # dalla più piccola alla più grande
-#matrix_solver_cholesky('nd24k.mat')
-#matrix_solver_cholesky('bundle_adj.mat')
-#matrix_solver_cholesky('Hook_1498.mat')
-#matrix_solver_cholesky('G3_circuit.mat')
+#risolutore_matrici_simmmetriche_definite_positive('nd24k.mat')
+#risolutore_matrici_simmmetriche_definite_positive('bundle_adj.mat')
+#risolutore_matrici_simmmetriche_definite_positive('Hook_1498.mat')
+#risolutore_matrici_simmmetriche_definite_positive('G3_circuit.mat')
