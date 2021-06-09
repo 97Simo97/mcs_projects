@@ -37,8 +37,8 @@ def choice(window):
         
         sud_label = tk.Label(window, text="File caricato: "+ f"{filename}")
         sud_label.grid(row=9, column=0, sticky="S", pady=20)
-    
-        img = cv2.imread(filename,0) #From bitmap to array
+        img_old = cv2.imread(filename,0) #From bitmap to array
+        img = np.array(img_old)
     else:
         img = []  
     
@@ -126,7 +126,7 @@ def dct2(blocchi,d):
         #e i valori >255 con 255
         for k in range(len(bloccoidct)):
             for l in range(len(bloccoidct[0])):
-                bloccoidct[k,l] = int(bloccoidct[k,l])
+                bloccoidct[k,l] = int(round(bloccoidct[k,l],0))
                 if (bloccoidct[k,l]>255):
                     bloccoidct[k,l]=255
                 elif (bloccoidct[k,l]<0):

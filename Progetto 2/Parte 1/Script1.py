@@ -17,7 +17,7 @@ def dct2_scipy(old_matrix):
 
     #DCT1 su righe 
     new_matrix = np.transpose(old_matrix)
-    new_matrix = dct(new_matrix, type = 2, norm = 'ortho')
+    new_matrix = dct(old_matrix, type = 2, norm = 'ortho')
     
     #DCT1 su colonne     
     new_matrix = np.transpose(new_matrix)
