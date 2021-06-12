@@ -15,7 +15,8 @@ img = []
 def show_about_message():
 
     box_title = "Compressione JPEG"
-    box_message = "Un semplice software in grado di comprimere immagini .bmp in toni di grigio secondo i parametri F e d scelti dall'utente"
+    box_message = "Un semplice software in grado di comprimere immagini .bmp \
+     in toni di grigio secondo i parametri F e d scelti dall'utente"
     messagebox.showinfo(box_title, box_message)
 
 # Funzione per far scegliere l'immagine all'utente
@@ -72,7 +73,8 @@ def compress(window, f, d):
          else:
             messagebox.showerror("Errore", "Immagine non caricata e parametri F e d non selezionati")
 
-# Funzione che suddivide l’immagine in blocchi quadrati di pixel di dimensioni F×F partendo in alto a sinistra, scartando gli avanzi
+# Funzione che suddivide l’immagine in blocchi quadrati di pixel
+# di dimensioni F×F partendo in alto a sinistra, scartando gli avanzi
 def decompose(f):
 
     global img
@@ -91,7 +93,8 @@ def decompose(f):
 
     return blocchi
 
-# Funzione che applica la DCT2 ad ogni blocco dell'immagine ed elimina le frequenze c[k, l] con k + l >= d
+# Funzione che applica la DCT2 ad ogni blocco dell'immagine
+# ed elimina le frequenze c[k, l] con k + l >= d
 def dct2(blocchi, d):
 
     nuovi_blocchi = []
