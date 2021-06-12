@@ -3,6 +3,22 @@ import time
 import numpy
 import scipy.fftpack
 
+# Funzione che effettua la DCT1 di Scipy
+def scipy_dct1(vector):
+
+    #DCT1 di Scipy
+    dct1 = scipy.fftpack.dct(vector, type = 2, norm = 'ortho')
+
+    return dct1
+
+# Funzione che effettua la DCT2 di Scipy
+def scipy_dct2(matrix):
+
+    #DCT2 di Scipy
+    dct2 = scipy.fftpack.dctn(matrix, type = 2, norm = 'ortho')
+
+    return dct2
+
 # Funzione che effettua la DCT1 su un vettore
 def my_dct1(vector):
 
@@ -42,7 +58,7 @@ def test_one_dim():
 
     print("Test DCT1:")
 
-    test_scipy_dct = scipy.fftpack.dct(vector, type = 2, norm='ortho')
+    test_scipy_dct = scipy_dct1(vector)
     print("DCT1 di Scipy:")
     for i in test_scipy_dct:
         print("{:.2e}".format(i))
@@ -68,7 +84,7 @@ def test_two_dim():
 
     print("Test DCT2:")
 
-    test_scipy_dct = scipy.fftpack.dctn(matrix, type = 2, norm = 'ortho')
+    test_scipy_dct = scipy_dct2(matrix)
     print("DCT2 di Scipy:")
     for i in range(0,8):
         for j in range(0,8):
@@ -101,7 +117,7 @@ def main():
 
         time1 = time.time()
         time1 = float(time1)
-        scipy.fftpack.dctn(matrix, type = 2, norm = 'ortho')
+        scipy_dct2(matrix)
         time2 = time.time()
         time2 = float(time2)
         time3 = time2 - time1
